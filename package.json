@@ -1,0 +1,27 @@
+{
+  "name": "simple-qiniu-plugin-webpack",
+  "version": "1.0.0",
+  "description": "upload assets to Qiniu after webpack bundle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shenwei235/simple-qiniu-plugin-webpack.git"
+  },
+  "keywords": [
+    "qiniu",
+    "webpack",
+    "plugin"
+  ],
+  "author": "Shen Wei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shenwei235/simple-qiniu-plugin-webpack/issues"
+  },
+  "homepage": "https://github.com/shenwei235/simple-qiniu-plugin-webpack#readme",
+  "devDependencies": {
+    "qiniu": "^6.1.11"
+  }
+}
