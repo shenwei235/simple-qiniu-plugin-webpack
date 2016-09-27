@@ -29,6 +29,14 @@ function qiniuUploader(options) {
 		var urlPrefix = this.options.domain + '/' + prefix;
 		this.replaceContentsFromFile(rootHTML, this.replacedFiles, urlPrefix);
 	}
+	this.buildPathRegex = function() {
+		return this.publicPath.split('\/').reduce(function(arr, item) {
+			if(item.trim()) {
+				arr.push(item);
+			}
+			return arr;
+		}, []).join('\\/');
+	}
 	this.replaceContentsFromFile = function(path, names, url_prefix, cb) {
 		var self = this;
 		fs.readFile(path, 'utf8', function(err, data) {
@@ -38,7 +46,7 @@ function qiniuUploader(options) {
 		  	var result = data;
 		  	console.log('\n----replace ' + path + ' with Qiniu url----\n');
 		  	names.map(function(name, index) {
-		  		var reg = new RegExp('\/' + self.publicPath + '\/' + name, 'g');
+		  		var reg = new RegExp('\/' + self.buildPathRegex() + '\/' + name, 'g');
 		  		if(result.match(reg)) {
 		  			console.log('replace /' + self.publicPath + '/'+ name + ' with ' + url_prefix + name + ' in ' + path);
 		  		}
@@ -125,7 +133,7 @@ qiniuUploader.prototype.apply = function(compiler) {
 			compilation.errors.push(new Error('Options(domain, access, secret, bucket, include) are required!'));
 			callback();
 		}
-		self.setPath(compiler.options.output.publicPath.replace(/\//g, ''), compiler.options.output.path);
+		self.setPath(compiler.options.output.publicPath, compiler.options.output.path);
 		var total_assets = [];
 		// fetch all assets files
 		for(key in compilation.assets) {
